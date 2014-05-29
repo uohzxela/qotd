@@ -5,14 +5,14 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-  	render @user 
   end
 
   def create
   	@user = User.new(user_params)
     if @user.save
+      sign_in @user 
       flash[:success] = "Welcome to QOTD!"
-      render 'show'
+      redirect_to @user
     else 
       render 'new'
     end
